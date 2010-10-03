@@ -7,6 +7,7 @@
 register_elgg_event_handler('init', 'system', 'customizations_init');
 
 function customizations_init() {
+	global $CONFIG;
 
 	unexpose_function('auth.gettoken');
 
@@ -14,6 +15,9 @@ function customizations_init() {
 	unregister_notification_handler('site');
 
 	register_elgg_event_handler('create', 'object', 'messages_throttle');
+
+	$action_path = "{$CONFIG->pluginspath}community_customizations/actions";
+	register_action('comment/edit', FALSE, "$action_path/edit_comment.php", TRUE);
 }
 
 /**
