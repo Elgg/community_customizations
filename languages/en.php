@@ -2,6 +2,7 @@
 
 $english = array(
 	'customizations:msg_limit' => 'Maximum number of sent messages over 5 minutes',
+	'customizations:blacklist' => 'Comma-separated list of spam words or phrases',
 
 	'customizations:comment:edit:success' => 'The comment was edited',
 	'customizations:comment:edit:error' => 'Failed to access the comment',

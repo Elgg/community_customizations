@@ -28,6 +28,9 @@ function customizations_init() {
 	register_plugin_hook('action', 'pages/edit', 'customizations_stop_add');
 	register_plugin_hook('action', 'pages/editwelcome', 'customizations_stop_add');
 
+	// profile spam
+	register_plugin_hook('action', 'profile/edit', 'customizations_profile_filter');
+
 	$action_path = "{$CONFIG->pluginspath}community_customizations/actions";
 	register_action('comment/edit', FALSE, "$action_path/edit_comment.php", TRUE);
 }
@@ -128,5 +131,25 @@ function customizations_stop_add() {
 		// spammer tried to directly hit the action
 		ban_user(get_loggedin_userid(), 'tried to post content before allowed');
 		return false;
+	}
+}
+
+/**
+ * Filter profile fields by blacklist
+ */
+function customizations_profile_filter() {
+	$blacklist = get_plugin_setting('blacklist', 'community_customizations');
+	$blacklist = explode(",", $blacklist);
+	$blacklist = array_map('trim', $blacklist);
+
+	foreach ($_REQUEST as $key => $value) {
+		if (is_string($value)) {
+			foreach ($blacklist as $word) {
+				if (strpos($value, $word) !== false) {
+					ban_user(get_loggedin_userid(), "used '$word' on profile");
+					return false;
+				}
+			}
+		}
 	}
 }
