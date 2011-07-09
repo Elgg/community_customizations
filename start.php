@@ -145,7 +145,7 @@ function customizations_profile_filter() {
 	foreach ($_REQUEST as $key => $value) {
 		if (is_string($value)) {
 			foreach ($blacklist as $word) {
-				if (strpos($value, $word) !== false) {
+				if (stripos($value, $word) !== false) {
 					ban_user(get_loggedin_userid(), "used '$word' on profile");
 					return false;
 				}
