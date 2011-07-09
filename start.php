@@ -22,6 +22,12 @@ function customizations_init() {
 	add_widget_type('messageboard', elgg_echo("customizations:widget:pm"), elgg_echo("customizations:widget:pm:desc"), "profile");
 	register_plugin_hook('forward', 'system', 'customizations_pm_forward');
 
+	// limit access to the add links
+	register_elgg_event_handler('pagesetup', 'system', 'customizations_remove_add_links');
+	register_plugin_hook('action', 'bookmarks/add', 'customizations_stop_add');
+	register_plugin_hook('action', 'pages/edit', 'customizations_stop_add');
+	register_plugin_hook('action', 'pages/editwelcome', 'customizations_stop_add');
+
 	$action_path = "{$CONFIG->pluginspath}community_customizations/actions";
 	register_action('comment/edit', FALSE, "$action_path/edit_comment.php", TRUE);
 }
@@ -77,5 +83,50 @@ function messages_throttle($event, $object_type, $object) {
 function customizations_pm_forward() {
 	if (get_input('pm_widget') == true) {
 		return $_SERVER['HTTP_REFERER'];
+	}
+}
+
+/**
+ * Is this a new user
+ * @return bool
+ */
+function customizations_is_new_user() {
+	$user = get_loggedin_user();
+
+	// 2 days
+	$cutoff = time() - 2 * 24 * 60 * 60;
+	if ($user->getTimeCreated() > $cutoff) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/**
+ * Remove some add links for new users
+ */
+function customizations_remove_add_links() {
+	if (isloggedin()) {
+		if (customizations_is_new_user()) {
+			// remove bookmark links
+			remove_submenu_item(elgg_echo('bookmarks:add'));
+			remove_submenu_item(elgg_echo('bookmarks:bookmarklet'));
+			remove_submenu_item(elgg_echo('bookmarks:bookmarklet:group'));
+
+			// pages links
+			remove_submenu_item(elgg_echo('pages:new'), 'pagesactions');
+			remove_submenu_item(elgg_echo('pages:welcome'), 'pagesactions');
+		}
+	}
+}
+
+/**
+ * Catch new users trying to post content before allowed
+ */
+function customizations_stop_add() {
+	if (customizations_is_new_user()) {
+		// spammer tried to directly hit the action
+		ban_user(get_loggedin_userid(), 'tried to post content before allowed');
+		return false;
 	}
 }
