@@ -120,6 +120,7 @@ function customizations_remove_add_links() {
 			remove_submenu_item(elgg_echo('bookmarks:add'));
 			remove_submenu_item(elgg_echo('bookmarks:bookmarklet'));
 			remove_submenu_item(elgg_echo('bookmarks:bookmarklet:group'));
+			elgg_unextend_view('owner_block/extend', 'bookmarks/owner_block');
 
 			// pages links
 			remove_submenu_item(elgg_echo('pages:new'), 'pagesactions');
