@@ -33,6 +33,10 @@ function customizations_init() {
 	//unregister_action("pages/editwelcome");
 	unset($CONFIG->actions["pages/editwelcome"]);
 
+	// move bookmarks to left column on groups profile
+	elgg_unextend_view('groups/right_column', 'bookmarks/groupprofile_bookmarks');
+	elgg_extend_view('groups/left_column', 'bookmarks/groupprofile_bookmarks');
+
 	// profile spam
 	register_plugin_hook('action', 'profile/edit', 'customizations_profile_filter');
 
