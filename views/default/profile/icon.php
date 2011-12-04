@@ -99,9 +99,24 @@ if (!$override) {
 
 	}
 
-	?><img <?php echo $img_class; ?> src="<?php echo elgg_format_url($vars['entity']->getIcon($vars['size'])); ?>" border="0" <?php echo $align; ?> alt="<?php echo htmlentities($vars['entity']->name, ENT_QUOTES, 'UTF-8'); ?>" width="<?php echo $img_size; ?>" height="<?php echo $img_size; ?>" title="<?php echo $title; ?>" <?php echo $vars['js']; ?> /><?php
 
-		if (!$override) {
+
+	if (in_array($vars['size'], array('small','tiny','topbar'))) {
+		// force size
+		?>
+		 
+		<img <?php echo $img_class; ?> src="<?php echo elgg_format_url($vars['entity']->getIcon($vars['size'])); ?>" border="0" <?php echo $align; ?> alt="<?php echo htmlentities($vars['entity']->name, ENT_QUOTES, 'UTF-8'); ?>" width="<?php echo $img_size; ?>" height="<?php echo $img_size; ?>" title="<?php echo $title; ?>" <?php echo $vars['js']; ?> />
+
+		<?php
+	} else {
+		?>
+
+		<img <?php echo $img_class; ?> src="<?php echo elgg_format_url($vars['entity']->getIcon($vars['size'])); ?>" border="0" <?php echo $align; ?> alt="<?php echo htmlentities($vars['entity']->name, ENT_QUOTES, 'UTF-8'); ?>" title="<?php echo $title; ?>" <?php echo $vars['js']; ?> />
+
+		<?php
+	}
+
+	if (!$override) {
 
 	?></a>
 </div>
