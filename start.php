@@ -16,6 +16,8 @@ function customizations_init() {
 	// turn off site notifications for performance reasons
 	unregister_notification_handler('site');
 
+	register_elgg_event_handler('delete', 'user', 'customizations_purge_messages');
+
 	// convert messageboard to private message interface
 	add_widget_type('messageboard', elgg_echo("customizations:widget:pm"), elgg_echo("customizations:widget:pm:desc"), "profile");
 	register_plugin_hook('forward', 'system', 'customizations_pm_forward');
@@ -181,4 +183,32 @@ function customizations_pages_page_handler($page) {
 				break;
 		}
 	}
+}
+
+/**
+ * Delete messages from a user who is being deleted
+ *
+ * @param string   $event
+ * @param string   $type
+ * @param ElggUser $user
+ */
+function customizations_purge_messages($event, $type, $user) {
+
+	// make sure we delete them all
+	$entity_disable_override = access_get_show_hidden_status();
+	access_show_hidden_entities(true);
+
+	$messages = elgg_get_entities_from_metadata(array(
+		'type' => 'object',
+		'subtype' => 'messages',
+		'metadata_name' => 'fromId',
+		'metadata_value' => $user->getGUID(),
+	));
+	if ($messages) {
+		foreach ($messages as $e) {
+			$e->delete();
+		}
+	}
+
+	access_show_hidden_entities($entity_disable_override);
 }
