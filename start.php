@@ -33,6 +33,9 @@ function customizations_init() {
 	//unregister_action("pages/editwelcome");
 	unset($CONFIG->actions["pages/editwelcome"]);
 
+	// do not want the pages link in hover menu
+	elgg_unextend_view('profile/menu/links', 'pages/menu');
+
 	// move bookmarks to left column on groups profile
 	elgg_unextend_view('groups/right_column', 'bookmarks/groupprofile_bookmarks');
 	elgg_extend_view('groups/left_column', 'bookmarks/groupprofile_bookmarks');
