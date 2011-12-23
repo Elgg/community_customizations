@@ -3,6 +3,7 @@
  * Community customizations CSS
  */
 ?>
-#pm_widget textarea {
+
+.community-pm-textarea {
 	height: 100px;
 }
