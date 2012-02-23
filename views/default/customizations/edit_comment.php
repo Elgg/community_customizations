@@ -6,15 +6,15 @@
 echo "<div class=\"collapsible_box\">";
 
 $submit_input = elgg_view('input/submit', array(
-	'internalname' => 'submit',
+	'name' => 'submit',
 	'value' => elgg_echo('save'))
 );
 $text_textarea = elgg_view('input/longtext', array(
-	'internalname' => 'postComment' . $vars['annotation']->id,
+	'name' => 'postComment' . $vars['annotation']->id,
 	'value' => $vars['annotation']->value)
 );
 $field = elgg_view('input/hidden', array(
-	'internalname' => 'annotation_id',
+	'name' => 'annotation_id',
 	'value' => $vars['annotation']->id)
 );
 
@@ -33,9 +33,9 @@ $form_body = <<<EOT
 EOT;
 
 echo elgg_view('input/form', array(
-	'action' => "{$vars['url']}action/comment/edit",
+	'action' => "{$vars['url']}action/comments/edit",
 	'body' => $form_body,
-	'internalid' => 'editCommentForm')
+	'id' => 'editCommentForm')
 );
 
 echo '</div>';
