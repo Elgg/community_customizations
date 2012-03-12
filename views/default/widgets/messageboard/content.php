@@ -16,14 +16,14 @@ $viewer = elgg_get_logged_in_user_entity();
 
 $body = '<div>';
 $body .= elgg_view('input/plaintext', array(
-	'name' => 'message',
+	'name' => 'body',
 	'class' => 'community-pm-textarea',
 ));
 $body .= '</div>';
 
 $body .= '<div class="elgg-foot">';
 $body .= elgg_view('input/hidden', array(
-	'name' => 'title',
+	'name' => 'subject',
 	'value' => elgg_echo('customizations:pm:subject', array($viewer->name)),
 ));
 
