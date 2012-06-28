@@ -24,8 +24,12 @@ function customizations_init() {
 	// do not want the pages link in hover menu
 	elgg_unextend_view('profile/menu/links', 'pages/menu');
 
+	// button for flushing apc cache
+	elgg_register_plugin_hook_handler('register', 'menu:admin_control_panel', 'customizations_control_panel');
+
 	$action_path = elgg_get_plugins_path() . "community_customizations/actions";
 	elgg_register_action('comments/edit', "$action_path/edit_comment.php", 'admin');
+	elgg_register_action('admin/flush_apc', "$action_path/admin/flush_apc.php", 'admin');
 }
 
 /**
@@ -63,4 +67,16 @@ function customizations_purge_messages($event, $type, $user) {
 	}
 
 	access_show_hidden_entities($entity_disable_override);
+}
+
+function customizations_control_panel($hook, $type, $value) {
+	$options = array(
+		'name' => 'flush_apc',
+		'text' => elgg_echo('apc:flush'),
+		'href' => 'action/admin/flush_apc',
+		'is_action' => true,
+		'link_class' => 'elgg-button elgg-button-action',
+	);
+	$value[] = ElggMenuItem::factory($options);
+	return $value;
 }

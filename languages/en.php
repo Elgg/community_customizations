@@ -15,6 +15,10 @@ $english = array(
 		<a href="http://community.elgg.org/pg/groups/179063/elgg-technical-support/">technical support group</a>.
 		If you are looking for the main Elgg documentation page, go to <a href="http://docs.elgg.org/">our wiki</a>.',
 
+	'apc:flush:success' => 'APC opcode cache flushed',
+	'apc:flush:fail' => 'Failed to flush APC opcode cache',
+	'apc:flush' => 'Flush APC',
+
 );
 
 add_translation("en", $english);
