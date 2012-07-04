@@ -27,6 +27,9 @@ function customizations_init() {
 	// button for flushing apc cache
 	elgg_register_plugin_hook_handler('register', 'menu:admin_control_panel', 'customizations_control_panel');
 
+	// shut googlebot out from search
+	elgg_register_plugin_hook_handler('route', 'search', 'customizations_stop_googlebot');
+
 	$action_path = elgg_get_plugins_path() . "community_customizations/actions";
 	elgg_register_action('comments/edit', "$action_path/edit_comment.php", 'admin');
 	elgg_register_action('admin/flush_apc', "$action_path/admin/flush_apc.php", 'admin');
@@ -79,4 +82,14 @@ function customizations_control_panel($hook, $type, $value) {
 	);
 	$value[] = ElggMenuItem::factory($options);
 	return $value;
+}
+
+/**
+ * Googlebot does not respect robots.txt so we block it
+ */
+function customizations_stop_googlebot() {
+	if (stripos($_SERVER['HTTP_USER_AGENT'], 'googlebot') !== false) {
+		header("HTTP/1.1 403 Forbidden");
+		exit;
+	}
 }
