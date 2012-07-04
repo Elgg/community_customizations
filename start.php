@@ -62,6 +62,7 @@ function customizations_purge_messages($event, $type, $user) {
 		'subtype' => 'messages',
 		'metadata_name' => 'fromId',
 		'metadata_value' => $user->getGUID(),
+		'limit' => 0,
 	));
 	if ($messages) {
 		foreach ($messages as $e) {
