@@ -15,6 +15,9 @@ function customizations_init() {
 	// turn off site notifications for performance reasons
 	unregister_notification_handler('site');
 
+	// filter certain items from going to the river
+	elgg_register_plugin_hook_handler('creating', 'river', 'customizations_filter_river');
+
 	elgg_register_event_handler('delete', 'user', 'customizations_purge_messages');
 
 	// convert messageboard to private message interface
@@ -83,6 +86,18 @@ function customizations_control_panel($hook, $type, $value) {
 	);
 	$value[] = ElggMenuItem::factory($options);
 	return $value;
+}
+
+/**
+ * Prevent particular items from going to the river
+ */
+function customizations_filter_river($hook, $type, $item) {
+	$view = $item['view'];
+	switch ($view) {
+		case 'river/relationship/friend/create':
+			return false;
+			break;
+	}
 }
 
 /**

@@ -9,6 +9,7 @@ Features of the Community Customization Plugin
  * Delete private messages sent from deleted users
  * Turn off site notifications for performance reasons
  * Add APC cache flush button to control panel widget
+ * Filter out friending from the river
 
  
 TODO
