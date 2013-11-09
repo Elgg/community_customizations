@@ -33,7 +33,7 @@ $form_body = <<<EOT
 EOT;
 
 echo elgg_view('input/form', array(
-	'action' => "{$vars['url']}action/comments/edit",
+	'action' => elgg_get_site_url() . "action/comments/edit",
 	'body' => $form_body,
 	'id' => 'editCommentForm')
 );
