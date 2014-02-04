@@ -10,6 +10,7 @@ Features of the Community Customization Plugin
  * Turn off site notifications for performance reasons
  * Add APC cache flush button to control panel widget
  * Filter out friending from the river
+ * Changed the elgg-subtext in user listing to admin configured profile field
 
  
 TODO
