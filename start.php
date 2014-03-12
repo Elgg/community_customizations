@@ -97,6 +97,10 @@ function customizations_filter_river($hook, $type, $item) {
 		case 'river/relationship/friend/create':
 			return false;
 			break;
+			
+		case 'river/object/bookmarks/create':
+			return false;
+			break;
 	}
 }
 
