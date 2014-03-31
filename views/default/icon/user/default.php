@@ -21,19 +21,19 @@ if (!in_array($size, array('topbar', 'tiny', 'small', 'medium', 'large', 'master
 	$size = 'medium';
 }
 
+if (!($user instanceof ElggUser)) {
+	return;
+}
+
+$name = htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8', false);
+$username = $user->username;
+
 $class = "elgg-avatar elgg-avatar-$size";
 if (isset($vars['class'])) {
 	$class = "$class {$vars['class']}";
 }
 
 $use_link = elgg_extract('use_link', $vars, true);
-
-if (!($user instanceof ElggUser)) {
-	return true;
-}
-
-$name = htmlspecialchars($user->name, ENT_QUOTES, 'UTF-8', false);
-$username = $user->username;
 
 $icontime = $user->icontime;
 if (!$icontime) {
@@ -60,22 +60,12 @@ if (isset($vars['hover'])) {
 	$use_hover = $vars['hover'];
 }
 
-$spacer_url = elgg_get_site_url() . '_graphics/spacer.gif';
-
-$icon_url = elgg_format_url($user->getIconURL($size));
-$params = array(
-	'src' => $spacer_url,
+$icon = elgg_view('output/img', array(
+	'src' => $user->getIconURL($size),
 	'alt' => $name,
 	'title' => $name,
 	'class' => $img_class,
-	'style' => "background: url($icon_url) no-repeat;",
-);
-if (in_array($size, array('small', 'tiny', 'topbar'))) {
-	$icon_sizes = elgg_get_config('icon_sizes');
-	$params['width'] = $icon_sizes[$size]['w'];
-	$params['height'] = $icon_sizes[$size]['h'];
-}
-$icon = elgg_view('output/img', $params);
+));
 
 $show_menu = $use_hover && (elgg_is_admin_logged_in() || !$user->isBanned());
 

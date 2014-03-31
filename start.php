@@ -10,7 +10,9 @@ function customizations_init() {
 
 	elgg_extend_view('css/elgg', 'customizations/css');
 
-	unexpose_function('auth.gettoken');
+	if (function_exists("elgg_ws_unexpose_function")) {
+		elgg_ws_unexpose_function('auth.gettoken');
+	}
 
 	// turn off site notifications for performance reasons
 	unregister_notification_handler('site');
