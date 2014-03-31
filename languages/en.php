@@ -1,10 +1,6 @@
 <?php
 
-$english = array(
-
-	'customizations:comment:edit:success' => 'The comment was edited',
-	'customizations:comment:edit:error' => 'Failed to access the comment',
-
+return array(
 	'customizations:widget:pm' => 'Send private message',
 	'customizations:widget:pm:desc' => 'Enables users to send private messages to you from your profile',
 	'customizations:pm:logged_out' => 'You must be logged in to send a private message.',
@@ -18,7 +14,4 @@ $english = array(
 	'apc:flush:success' => 'APC opcode cache flushed',
 	'apc:flush:fail' => 'Failed to flush APC opcode cache',
 	'apc:flush' => 'Flush APC',
-
 );
-
-add_translation("en", $english);

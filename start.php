@@ -6,6 +6,9 @@
 
 elgg_register_event_handler('init', 'system', 'customizations_init');
 
+/**
+ * Initialize the plugin
+ */
 function customizations_init() {
 
 	elgg_extend_view('css/elgg', 'customizations/css');
@@ -14,16 +17,13 @@ function customizations_init() {
 		elgg_ws_unexpose_function('auth.gettoken');
 	}
 
-	// turn off site notifications for performance reasons
-	unregister_notification_handler('site');
-
 	// filter certain items from going to the river
 	elgg_register_plugin_hook_handler('creating', 'river', 'customizations_filter_river');
 
 	elgg_register_event_handler('delete', 'user', 'customizations_purge_messages');
 
 	// convert messageboard to private message interface
-	elgg_register_widget_type('messageboard', elgg_echo("customizations:widget:pm"), elgg_echo("customizations:widget:pm:desc"), "profile");
+	elgg_register_widget_type('messageboard', elgg_echo("customizations:widget:pm"), elgg_echo("customizations:widget:pm:desc"), array("profile"));
 	elgg_register_plugin_hook_handler('forward', 'system', 'customizations_pm_forward');
 
 	// do not want the pages link in hover menu
@@ -78,7 +78,16 @@ function customizations_purge_messages($event, $type, $user) {
 	access_show_hidden_entities($entity_disable_override);
 }
 
-function customizations_control_panel($hook, $type, $value) {
+/**
+ * Register a button for flushing apc cache
+ *
+ * @param string         $hook
+ * @param string         $type
+ * @param ElggMenuItem[] $menu
+ * @param array          $params
+ * @return ElggMenuItem[] $menu
+ */
+function customizations_control_panel($hook, $type, $menu, $params) {
 	$options = array(
 		'name' => 'flush_apc',
 		'text' => elgg_echo('apc:flush'),
@@ -86,8 +95,8 @@ function customizations_control_panel($hook, $type, $value) {
 		'is_action' => true,
 		'link_class' => 'elgg-button elgg-button-action',
 	);
-	$value[] = ElggMenuItem::factory($options);
-	return $value;
+	$menu[] = ElggMenuItem::factory($options);
+	return $menu;
 }
 
 /**
@@ -99,7 +108,6 @@ function customizations_filter_river($hook, $type, $item) {
 		case 'river/relationship/friend/create':
 			return false;
 			break;
-			
 		case 'river/object/bookmarks/create':
 			return false;
 			break;
