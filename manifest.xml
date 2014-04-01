@@ -5,7 +5,7 @@
 	<version>1.9</version>
 	<description>Customizations for the Elgg community site.</description>
 	<website>https://github.com/Elgg/community_customizations</website>
-	<copyright>(C) Elgg Foundation 2010-2013</copyright>
+	<copyright>(C) Elgg Foundation 2010-2014</copyright>
 	<license>GNU General Public License version 2</license>
 	<requires>
 		<type>elgg_release</type>
