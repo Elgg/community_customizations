@@ -14,4 +14,5 @@ return array(
 	'apc:flush:success' => 'APC opcode cache flushed',
 	'apc:flush:fail' => 'Failed to flush APC opcode cache',
 	'apc:flush' => 'Flush APC',
+	'messages:fly' => "Send Message"
 );

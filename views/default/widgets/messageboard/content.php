@@ -28,8 +28,8 @@ $body .= elgg_view('input/hidden', array(
 ));
 
 $body .= elgg_view('input/hidden', array(
-	'name' => 'recipient_guid',
-	'value' => elgg_get_page_owner_guid(),
+	'name' => 'recipient_username',
+	'value' => elgg_get_page_owner_entity()->username,
 ));
 
 $body .= elgg_view('input/hidden', array(
