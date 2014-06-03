@@ -1,0 +1,21 @@
+{
+    "name": "elgg/community_customizations",
+    "description": "Customizations for the Elgg community site.",
+    "type": "elgg-plugin",
+    "keywords": [
+        "elgg",
+        "plugin"
+    ],
+    "homepage": "https://github.com/Elgg/community_customizations",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Core developers",
+            "homepage": "https://github.com/Elgg/community_customizations",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "composer/installers": ">=1.0.8"
+    }
+}
