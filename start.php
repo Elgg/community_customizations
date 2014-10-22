@@ -38,6 +38,7 @@ function customizations_init() {
 	$action_path = elgg_get_plugins_path() . "community_customizations/actions";
 	elgg_register_action('comments/edit', "$action_path/edit_comment.php", 'admin');
 	elgg_register_action('admin/flush_apc', "$action_path/admin/flush_apc.php", 'admin');
+	elgg_register_action('comments/disable', "$action_path/comments_disable.php", 'admin');
 }
 
 /**

@@ -14,5 +14,8 @@ return array(
 	'apc:flush:success' => 'APC opcode cache flushed',
 	'apc:flush:fail' => 'Failed to flush APC opcode cache',
 	'apc:flush' => 'Flush APC',
-	'messages:fly' => "Send Message"
+	'messages:fly' => "Send Message",
+	'customizations:comments:disable:fix' => "There are %s enabled comments in the system with containers that are disabled.  %s",
+	'customizations:comments:fix' => 'Fix comments',
+	'customizations:comments:fixed' => "Comments have been fixed",
 );
