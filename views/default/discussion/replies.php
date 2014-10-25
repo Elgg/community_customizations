@@ -38,7 +38,9 @@ if ($show_add_form) {
 			'text' => 'log in'
 		));
 
-		echo "You must $log_in to post replies.";
+		echo "<div class=\"elgg-box elgg-state-notice\">";
+			echo "You must $log_in to post replies.";
+		echo "</div>";
 	} elseif (!$group->isMember()) {
 		// @todo override action to redirect back to thread.
 		$url = current_page_url();
@@ -47,8 +49,9 @@ if ($show_add_form) {
 			'text' => 'join this group',
 			'confirm' => 'Join this group?'
 		));
-
-		echo "You must $join_group to post replies.";
+		echo "<div class=\"elgg-box elgg-state-notice\">";
+			echo "You must $join_group to post replies.";
+		echo "</div>";
 	}
 }
 
